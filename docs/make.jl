@@ -6,12 +6,12 @@ DocMeta.setdocmeta!(VortexCollisions, :DocTestSetup, :(using VortexCollisions); 
 makedocs(;
     modules = [VortexCollisions],
     authors = "Michael Kraus",
-    repo = "https://github.com/DDMGNI/VortexCollisions.jl/blob/{commit}{path}#{line}",
+    repo = "https://github.com/JuliaPlasma/VortexCollisions.jl/blob/{commit}{path}#{line}",
     sitename = "VortexCollisions.jl",
     format = Documenter.HTML(;
         prettyurls = get(ENV, "CI", "false") == "true",
-        canonical = "https://DDMGNI.github.io/VortexCollisions.jl",
-        edit_link = "master",
+        canonical = "https://JuliaPlasma.github.io/VortexCollisions.jl",
+        edit_link = "main",
         assets = String[]
     ),
     pages = [
@@ -21,6 +21,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo = "github.com/DDMGNI/VortexCollisions.jl",
-    devbranch = "master"
+    repo = "github.com/JuliaPlasma/VortexCollisions.jl",
+    devbranch = "main"
 )

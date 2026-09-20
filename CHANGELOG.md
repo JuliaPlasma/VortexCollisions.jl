@@ -31,8 +31,19 @@ reasoning that makes it worth keeping.
 
 ### Bug Fixes
 
+- **The documentation build named a branch that does not exist.** `docs/make.jl` set both
+  `edit_link` and `devbranch` to `"master"`, while the default branch is `main` and the remote
+  carries no `master` at all. So `deploydocs` never deployed the development documentation, and
+  every "Edit on GitHub" link in the built manual pointed at a dead path. Both now say `"main"`.
+
 ### Breaking Changes
 
+- **The repository moved from `DDMGNI` to the `JuliaPlasma` organisation.** It is now
+  `github.com/JuliaPlasma/VortexCollisions.jl`, and the documentation deploys to
+  `JuliaPlasma.github.io/VortexCollisions.jl`. GitHub redirects the old path, so an existing
+  clone and an `]add` of the old URL both keep working — but they resolve through a redirect
+  rather than to the real location, so pinned URLs are worth updating. `README.md`, `docs/make.jl`
+  and `docs/src/index.md` name the new path.
 - **A `[compat]` section, where there was none.** `julia = "1.10"` — the LTS and the floor across
   the tree, and the field the CI matrix resolves its lower entry from — plus bounds for the four
   non-stdlib dependencies: `AbstractFFTs = "1"`, `FFTW = "1"`, `HDF5 = "0.17"`,

@@ -4,7 +4,7 @@ CurrentModule = VortexCollisions
 
 # VortexCollisions
 
-Documentation for [VortexCollisions](https://github.com/DDMGNI/VortexCollisions.jl).
+Documentation for [VortexCollisions](https://github.com/JuliaPlasma/VortexCollisions.jl).
 
 Evaluation of collision operators for the vorticity equation. The package provides a
 two-dimensional Fourier grid, the transforms and spectral operators on it, quadrature rules,
