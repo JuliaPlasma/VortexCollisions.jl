@@ -28,6 +28,7 @@ reasoning that makes it worth keeping.
   neither `make.jl` nor any page under `docs/src` mentions it, so the documentation build is
   unaffected. It was tracked only by the commit that added this documentation build, and it is
   in `git log` from there.
+- **Test Suite Reorganization.** The test suite reorganizes following the tree's convention: test dependencies move to a new `test/Project.toml`; test files are renamed to mirror `src/` structure; and `runtests.jl` becomes a structured `@safetestset` list. A new `test/quality/aqua.jl` runs Aqua checks. This also fixes a bug: `fokker_planck_operator_kernel.jl`'s `mfunc_one!` and `hfunc_ϕ!` methods now correctly take the `grid` argument. Obsolete test files are removed.
 
 ### Bug Fixes
 
