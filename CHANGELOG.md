@@ -28,9 +28,6 @@ reasoning that makes it worth keeping.
   neither `make.jl` nor any page under `docs/src` mentions it, so the documentation build is
   unaffected. It was tracked only by the commit that added this documentation build, and it is
   in `git log` from there.
-
-### Changed
-
 - **The test suite follows the tree's test convention.** The test dependencies are in
   `test/Project.toml`, and `Project.toml` has no `[extras]` or `[targets]`. `runtests.jl` lists
   each test file as a `@safetestset` in the `core` group, so each file runs in its own module. The
