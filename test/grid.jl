@@ -1,3 +1,4 @@
+using VortexCollisions
 
 function testGrid()
     grid = Grid2d(7, 7)

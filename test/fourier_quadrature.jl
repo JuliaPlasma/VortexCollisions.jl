@@ -1,3 +1,5 @@
+using VortexCollisions
+using Test
 
 function u_test(x, y, σ)
     exp(- ((x-π)^2 + (y-π)^2) / (2σ^2))

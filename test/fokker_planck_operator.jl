@@ -1,3 +1,7 @@
+using VortexCollisions
+using Test
+
+include("helpers/functions.jl")
 
 function u_test1(x, y)
     cos(x) * cos(y)
