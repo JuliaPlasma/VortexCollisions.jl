@@ -6,7 +6,7 @@ end
 
 using VortexCollisions
 
-include("test_functions.jl")
+include("../test/helpers/functions.jl")
 
 function run_timings()
     M = 64

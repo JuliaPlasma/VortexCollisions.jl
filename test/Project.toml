@@ -1,0 +1,12 @@
+[deps]
+Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
+SafeTestsets = "1bc83da4-3b8d-516f-aca4-4fe02f6d838f"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+VortexCollisions = "ae515ecd-ad30-4b0c-a7a1-0a0b114162d6"
+
+[compat]
+Aqua = "0.8"
+SafeTestsets = "0.1"
+
+[sources]
+VortexCollisions = {path = ".."}

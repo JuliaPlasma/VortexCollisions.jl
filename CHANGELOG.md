@@ -28,6 +28,16 @@ reasoning that makes it worth keeping.
   neither `make.jl` nor any page under `docs/src` mentions it, so the documentation build is
   unaffected. It was tracked only by the commit that added this documentation build, and it is
   in `git log` from there.
+- **The test suite follows the tree's test convention.** The test dependencies are in
+  `test/Project.toml`, and `Project.toml` has no `[extras]` or `[targets]`. `runtests.jl` lists
+  each test file as a `@safetestset` in the `core` group, so each file runs in its own module. The
+  test files have the names of the `src/` files they test, and the shared functions are in
+  `test/helpers/functions.jl`. `test/quality/aqua.jl` runs Aqua, and `[compat]` gains
+  `Distributed = "1"`, `LinearAlgebra = "1"` and `SharedArrays = "1"` so that its compat-bounds
+  check passes (issue #2). The kernel test defines its own `mfunc_one!` and `hfunc_ϕ!`
+  with the `grid` argument that the operator passes, because it no longer sees the methods of the
+  other test file. `runprofiler.jl` and `runtimings.jl` are timing scripts, not tests, and move from
+  `test/` to `scripts/`. Nothing under `src/` changes.
 
 ### Bug Fixes
 

@@ -1,9 +1,9 @@
-
-# call with julia --track-allocation=user test/runprofiler.jl
+# This script fails: `zeros(u)` raises `MethodError: no method matching zeros(::Matrix{Float64})`.
+# call with julia --track-allocation=user scripts/runprofiler.jl
 
 using VortexCollisions
 
-include("test_functions.jl")
+include("../test/helpers/functions.jl")
 
 function run_profiler()
     M = 64

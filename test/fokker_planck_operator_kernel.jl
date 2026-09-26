@@ -1,17 +1,18 @@
 
 using VortexCollisions
+using Test
 
-include("test_functions.jl")
+include("helpers/functions.jl")
 
 function u_test_sinx4(x, y)
     sin(x)^4
 end
 
-function mfunc_one!(u, m)
+function mfunc_one!(u, m, grid)
     m .= 1
 end
 
-function hfunc_ϕ!(u, ϕ, h)
+function hfunc_ϕ!(u, ϕ, h, grid)
     h .= ϕ
 end
 

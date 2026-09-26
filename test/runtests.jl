@@ -1,13 +1,14 @@
+using SafeTestsets
 
-using VortexCollisions
-using Test
+const GROUPS = isempty(ARGS) ? ["core", "slow"] : ARGS
 
-include("test_functions.jl")
-
-include("test_grid.jl")
-include("test_fourier_transform.jl")
-include("test_fourier_operators.jl")
-include("test_fourier_quadrature.jl")
-include("test_trapezoidal_quadrature.jl")
-include("test_fokker_planck_operator.jl")
-include("test_fokker_planck_operator_kernel.jl")
+if "core" in GROUPS
+    @safetestset "Aqua" include("quality/aqua.jl")
+    @safetestset "Grid" include("grid.jl")
+    @safetestset "Fourier transform" include("fourier_transform.jl")
+    @safetestset "Fourier operators" include("fourier_operators.jl")
+    @safetestset "Fourier quadrature" include("fourier_quadrature.jl")
+    @safetestset "Trapezoidal quadrature" include("trapezoidal_quadrature.jl")
+    @safetestset "Fokker-Planck operator" include("fokker_planck_operator.jl")
+    @safetestset "Fokker-Planck operator kernel" include("fokker_planck_operator_kernel.jl")
+end

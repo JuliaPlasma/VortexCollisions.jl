@@ -1,3 +1,7 @@
+using VortexCollisions
+using Test
+
+include("helpers/functions.jl")
 
 function testGradient()
     M = 32
