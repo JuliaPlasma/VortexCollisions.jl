@@ -59,5 +59,3 @@ reasoning that makes it worth keeping.
   non-stdlib dependencies: `AbstractFFTs = "1"`, `FFTW = "1"`, `HDF5 = "0.17"`,
   `ProgressMeter = "1"`, matching what the manifest resolves today. An unbounded dependency is free
   to break the package on its next breaking release.
-
-## Open Issues
