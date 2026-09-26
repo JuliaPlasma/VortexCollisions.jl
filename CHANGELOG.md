@@ -32,11 +32,12 @@ reasoning that makes it worth keeping.
   `test/Project.toml`, and `Project.toml` has no `[extras]` or `[targets]`. `runtests.jl` lists
   each test file as a `@safetestset` in the `core` group, so each file runs in its own module. The
   test files have the names of the `src/` files they test, and the shared functions are in
-  `test/helpers/functions.jl`. `test/quality/aqua.jl` runs Aqua; its compat-bounds check of the
-  deps is marked broken (issue #2). The kernel test defines its own `mfunc_one!` and `hfunc_ϕ!`
+  `test/helpers/functions.jl`. `test/quality/aqua.jl` runs Aqua, and `[compat]` gains
+  `Distributed = "1"`, `LinearAlgebra = "1"` and `SharedArrays = "1"` so that its compat-bounds
+  check passes (issue #2). The kernel test defines its own `mfunc_one!` and `hfunc_ϕ!`
   with the `grid` argument that the operator passes, because it no longer sees the methods of the
   other test file. `runprofiler.jl` and `runtimings.jl` are timing scripts, not tests, and move from
-  `test/` to `scripts/`. This change is test-only; nothing under `src/` changes.
+  `test/` to `scripts/`. Nothing under `src/` changes.
 
 ### Bug Fixes
 
