@@ -30,3 +30,21 @@ function testFourierQuadrature()
 end
 
 testFourierQuadrature()
+
+@testset "Fourier quadrature of a matrix of weights" begin
+    grid = Grid2d(16, 16)
+    ft = FourierTransform(grid)
+    u = get_field(grid)
+    û = get_trans(ft)
+
+    u .= [u_test(x, y, 0.5) for x in grid.x, y in grid.y]
+
+    prfft!(ft, u, û)
+
+    μ = ft.μ
+    w = reshape([μ, 3μ, 2μ, 4μ], 2, 2)
+    q = fourier_quadrature(μ, û, û, grid)
+
+    @test fourier_quadrature(w, û, û, grid) ≈ [q 2q; 3q 4q]
+    @test fourier_quadrature(w, [û, 2û], û, grid) ≈ [5q, 11q]
+end
