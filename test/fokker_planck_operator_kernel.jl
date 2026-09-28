@@ -36,6 +36,9 @@ end
 testNullspace(u_test_sinx4, mfunc_one!, hfunc_ϕ!)
 
 @testset "Fourier convolution kernel matches the trapezoidal kernel" begin
+    # the serial branch of `collision_operator!` computes the trapezoidal reference
+    @test VortexCollisions.nworkers() == 1
+
     M = 64
     N = 64
 
@@ -51,6 +54,9 @@ testNullspace(u_test_sinx4, mfunc_one!, hfunc_ϕ!)
 
     𝔽 = [copy(F) for F in op.𝔽]
     𝔻 = [copy(D) for D in op.𝔻]
+
+    foreach(A -> fill!(A, NaN), op.𝔽)
+    foreach(A -> fill!(A, NaN), op.𝔻)
 
     VortexCollisions.convolution_kernel_fourier!(
         op.grid, op.ft, 1, N, op.wfunc, op.Dh, op.Dû, op.m̂, op.𝔽, op.𝔻)
