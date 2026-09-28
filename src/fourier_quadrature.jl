@@ -23,7 +23,7 @@ function fourier_quadrature(
 
     for l in 1:size(w, 2)
         for k in 1:size(w, 1)
-            result[k, l] = fourier_quarature(w[k, l], v, u, grid)
+            result[k, l] = fourier_quadrature(w[k, l], v, u, grid)
         end
     end
 
@@ -40,7 +40,7 @@ function fourier_quadrature(
 
     for k in 1:size(w, 1)
         for l in 1:size(w, 2)
-            result[k] += fourier_quarature(w[k, l], v[l], u, grid)
+            result[k] += fourier_quadrature(w[k, l], v[l], u, grid)
         end
     end
 
