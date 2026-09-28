@@ -45,12 +45,12 @@ reasoning that makes it worth keeping.
   `edit_link` and `devbranch` to `"master"`, while the default branch is `main` and the remote
   carries no `master` at all. So `deploydocs` never deployed the development documentation, and
   every "Edit on GitHub" link in the built manual pointed at a dead path. Both now say `"main"`.
-- **Three methods failed on every call.** `fourier_quadrature` with a matrix of weight matrices
-  called the misspelled `fourier_quarature` and threw an `UndefVarError`. `trapezoidal_quadrature`
-  with a matrix of weight matrices typed its result with the unbound `CT` and threw an
-  `UndefVarError`. `convolution_kernel_fourier!` built its weight arrays with
-  `Array{Array{RT, 2}}(2, 2)`, a constructor without `undef` that Julia 1.0 removed, and threw a
-  `MethodError`. All three now run. Tests check the quadratures against their scalar method, and
+- **Five methods failed on every call.** The two `fourier_quadrature` methods with a matrix of
+  weight matrices called the misspelled `fourier_quarature` and threw an `UndefVarError`. The two
+  `trapezoidal_quadrature` methods with a matrix of weight matrices typed their result with the
+  unbound `CT` and threw an `UndefVarError`. `convolution_kernel_fourier!` built its weight arrays
+  with `Array{Array{RT, 2}}(2, 2)`, a constructor without `undef` that Julia 1.0 removed, and threw a
+  `MethodError`. All five now run. Tests check the quadratures against their scalar method, and
   the Fourier kernel against the trapezoidal kernel.
 
 ### Breaking Changes
