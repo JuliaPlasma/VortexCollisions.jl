@@ -275,8 +275,8 @@ end
         𝔽::Vector{SharedArray{RT, 2}}, 𝔻::Matrix{SharedArray{RT, 2}}) where {
         M, N, ℳ, 𝒩, RT, CT}
     local g::Vector{Matrix{RT}} = [zeros(RT, M, N), zeros(RT, M, N)]
-    local w::Matrix{Matrix{RT}} = Array{Array{RT, 2}}(2, 2)
-    local ŵ::Matrix{Matrix{CT}} = Array{Array{CT, 2}}(2, 2)
+    local w::Matrix{Matrix{RT}} = Array{Array{RT, 2}}(undef, 2, 2)
+    local ŵ::Matrix{Matrix{CT}} = Array{Array{CT, 2}}(undef, 2, 2)
 
     for l in 1:size(w, 2)
         for k in 1:size(w, 1)
