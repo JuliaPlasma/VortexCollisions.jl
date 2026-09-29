@@ -12,7 +12,7 @@ Apply fourier operator v[i] ← op[i] * u for i in 1:length(op)
 """
 function apply_operator!(op::Vector{Matrix{CT}}, u::Union{Matrix{CT}, SharedArray{CT, 2}},
         v::Union{Vector{Matrix{CT}}, Vector{SharedArray{CT, 2}}}) where {CT}
-    for k in 1:length(op)
+    for k in eachindex(op, v)
         v[k] .= op[k] .* u
     end
 end
@@ -25,7 +25,7 @@ function apply_operator!(
         v::Union{Matrix{CT}, SharedArray{CT, 2}}) where {CT}
     @assert length(op) == length(u)
     fill!(v, 0)
-    for k in 1:length(op)
+    for k in eachindex(op, u)
         v .+= op[k] .* u[k]
     end
 end

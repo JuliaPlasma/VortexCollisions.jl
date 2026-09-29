@@ -10,7 +10,6 @@ Three-stage Runge-Kutta method of Zhao and Wei with parameter C=4
 
     local a::Vector{RT} = [0.0, 0.5, 1.0]
     local b::Vector{RT} = [1/6, 2/3, 1/6]
-    local c::Vector{RT} = [0.0, 0.5, 1.0]
 
     quote
         @assert size(u₀) == size(u₁) == (M, N)
@@ -34,8 +33,8 @@ end
 
 function update_field!(f::Matrix{RT}, u₀::Matrix{RT}, u₁::Matrix{RT}, fac::RT) where {RT}
     @assert size(f) == size(u₀) == size(u₁)
-    @inbounds for j in 1:size(u₁, 2)
-        for i in 1:size(u₁, 1)
+    @inbounds for j in axes(u₁, 2)
+        for i in axes(u₁, 1)
             u₁[i, j] = u₀[i, j] + fac * f[i, j]
         end
     end

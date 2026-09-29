@@ -22,7 +22,9 @@ end
 function evaluate_function_on_grid(grid, ufunc, u)
     @assert size(u, 1) == length(grid.x)
     @assert size(u, 2) == length(grid.y)
+    # fatou-ignore index-from-length
     @inbounds for j in 1:size(u, 2)
+        # fatou-ignore index-from-length
         for i in 1:size(u, 1)
             u[i, j] = ufunc(grid.x[i], grid.y[j])
         end
