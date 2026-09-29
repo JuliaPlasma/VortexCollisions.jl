@@ -69,7 +69,9 @@ function run_simulation(op::CollisionOperator, nt::Int, Δt::Number,
         uinit::Function, output::String, nsave::Int = 1)
     u₀ = get_field(op.grid)
 
+    # fatou-ignore index-from-length
     for j in 1:size(u₀, 2)
+        # fatou-ignore index-from-length
         for i in 1:size(u₀, 1)
             u₀[i, j] = uinit(op.grid.x[i], op.grid.y[j])
         end

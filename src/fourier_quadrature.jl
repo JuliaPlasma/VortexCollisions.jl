@@ -6,8 +6,8 @@ function fourier_quadrature(w::Matrix{CT}, v::Union{Array{CT, 2}, SharedArray{CT
 
     local result::CT = 0
 
-    @inbounds for j in 1:size(u, 2)
-        for i in 1:size(u, 1)
+    @inbounds for j in axes(u, 2)
+        for i in axes(u, 1)
             result += w[i, j] * conj(v[i, j]) * u[i, j]
         end
     end
@@ -21,8 +21,8 @@ function fourier_quadrature(
         grid::Grid2d{M, N, RT}) where {M, N, RT, CT}
     local result::Matrix{CT} = zeros(CT, size(w, 1), size(w, 2))
 
-    for l in 1:size(w, 2)
-        for k in 1:size(w, 1)
+    for l in axes(w, 2)
+        for k in axes(w, 1)
             result[k, l] = fourier_quadrature(w[k, l], v, u, grid)
         end
     end
@@ -38,7 +38,9 @@ function fourier_quadrature(
 
     local result::Vector{CT} = zeros(CT, size(w, 1))
 
+    # fatou-ignore index-from-length
     for k in 1:size(w, 1)
+        # fatou-ignore index-from-length
         for l in 1:size(w, 2)
             result[k] += fourier_quadrature(w[k, l], v[l], u, grid)
         end

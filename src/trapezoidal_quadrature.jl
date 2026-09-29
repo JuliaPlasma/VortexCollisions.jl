@@ -23,8 +23,8 @@ function trapezoidal_quadrature(
         grid::Grid2d{M, N, RT}) where {M, N, RT}
     local result::Matrix{RT} = zeros(RT, size(w, 1), size(w, 2))
 
-    for l in 1:size(w, 2)
-        for k in 1:size(w, 1)
+    for l in axes(w, 2)
+        for k in axes(w, 1)
             result[k, l] = trapezoidal_quadrature(w[k, l], v, grid)
         end
     end
@@ -39,7 +39,9 @@ function trapezoidal_quadrature(
 
     local result::Vector{RT} = zeros(RT, size(w, 1))
 
+    # fatou-ignore index-from-length
     for k in 1:size(w, 1)
+        # fatou-ignore index-from-length
         for l in 1:size(w, 2)
             result[k] += trapezoidal_quadrature(w[k, l], v[l], grid)
         end

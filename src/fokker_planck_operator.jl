@@ -278,14 +278,14 @@ end
     local w::Matrix{Matrix{RT}} = Array{Array{RT, 2}}(undef, 2, 2)
     local ŵ::Matrix{Matrix{CT}} = Array{Array{CT, 2}}(undef, 2, 2)
 
-    for l in 1:size(w, 2)
-        for k in 1:size(w, 1)
+    for l in axes(w, 2)
+        for k in axes(w, 1)
             w[k, l] = zeros(RT, M, N)
         end
     end
 
-    for l in 1:size(ŵ, 2)
-        for k in 1:size(ŵ, 1)
+    for l in axes(ŵ, 2)
+        for k in axes(ŵ, 1)
             ŵ[k, l] = zeros(CT, ℳ, 𝒩)
         end
     end
@@ -309,6 +309,7 @@ end
                     end
                 end
 
+                # fatou-ignore index-from-length
                 for k in 1:length(𝔽)
                     𝔽[k][i, j] = 0
                     for l in 1:length(𝔽)
@@ -316,8 +317,8 @@ end
                     end
                 end
 
-                for l in 1:size(𝔻, 2)
-                    for k in 1:size(𝔻, 1)
+                for l in axes(𝔻, 2)
+                    for k in axes(𝔻, 1)
                         𝔻[k, l][i, j] = real(fourier_quadrature($ŵ[k, l], m̂, ft.μ, gr))
                     end
                 end
@@ -347,6 +348,7 @@ end
 
                 wfunc(gr, i, j, $g, $w)
 
+                # fatou-ignore index-from-length
                 for k in 1:length(𝔽)
                     𝔽[k][i, j] = 0
                     for l in 1:length(𝔽)
@@ -354,8 +356,8 @@ end
                     end
                 end
 
-                for l in 1:size(𝔻, 2)
-                    for k in 1:size(𝔻, 1)
+                for l in axes(𝔻, 2)
+                    for k in axes(𝔻, 1)
                         𝔻[k, l][i, j] = trapezoidal_quadrature($w[k, l], m, gr)
                     end
                 end
@@ -385,15 +387,15 @@ end
         @assert size(w[1, 1], 1) == size(g[1], 1) == M
         @assert size(w[1, 1], 2) == size(g[1], 2) == N
 
-        for l in 1:size(w, 2)
-            for k in 1:size(w, 1)
+        for l in axes(w, 2)
+            for k in axes(w, 1)
                 w[k, l] .= 0
             end
         end
 
         $g² .= 0
 
-        for k in 1:size(g, 1)
+        for k in axes(g, 1)
             @inbounds for j in 1:size($g², 2)
                 for i in 1:size($g², 1)
                     $g²[i, j] += g[k][i, j]^2
@@ -403,6 +405,7 @@ end
 
         # $g¹ .= sqrt.($g²)
 
+        # fatou-ignore index-from-length
         for k in 1:size(w, 1)
             @inbounds for j in 1:size(w[k, k], 2)
                 for i in 1:size(w[k, k], 1)
@@ -411,7 +414,9 @@ end
             end
         end
 
+        # fatou-ignore index-from-length
         for l in 1:size(w, 2)
+            # fatou-ignore index-from-length
             for k in 1:size(w, 1)
                 @inbounds for j in 1:size(w[k, l], 2)
                     for i in 1:size(w[k, l], 1)

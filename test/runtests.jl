@@ -11,4 +11,5 @@ if "core" in GROUPS
     @safetestset "Trapezoidal quadrature" include("trapezoidal_quadrature.jl")
     @safetestset "Fokker-Planck operator" include("fokker_planck_operator.jl")
     @safetestset "Fokker-Planck operator kernel" include("fokker_planck_operator_kernel.jl")
+    @safetestset "Time integration" include("time_integration.jl")
 end
