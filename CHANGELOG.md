@@ -56,10 +56,11 @@ reasoning that makes it worth keeping.
 ### Changed
 
 - **Code quality and API refinement.** Loops in src/ now iterate `axes`/`eachindex` instead of
-  `1:size`/`1:length` via fatou `index-from-length` checks; 13 findings where the index also reaches
-  an array of another shape, or another axis, are suppressed with `# fatou-ignore index-from-length`. The unused `c` vector
-  in the generator of `timestep!` (src/time_integration.jl) is deleted. A test for `update_field!` is
-  added (test/time_integration.jl). The exported `apply_operator!(::Vector, ::Matrix, ::Vector)` now
+  `1:size`/`1:length` via fatou `index-from-length` checks; 13 findings where the index also
+  reaches an array of another shape, or another axis, are suppressed with
+  `# fatou-ignore index-from-length`. The unused `c` vector in the generator of `timestep!`
+  (src/time_integration.jl) is deleted. A test for `update_field!` is added
+  (test/time_integration.jl). The exported `apply_operator!(::Vector, ::Matrix, ::Vector)` now
   raises `DimensionMismatch` when `op` and `v` have different lengths; previously, a longer `v` was
   silently filled only in part, and a shorter `v` raised `BoundsError`.
 
