@@ -55,6 +55,8 @@ reasoning that makes it worth keeping.
 
 ### Changed
 
+- **Coverage and cache in CI.** CI uploads coverage from the `Julia 1 - ubuntu-latest` job instead
+  of `Julia min`, and a test job saves the Julia cache only when it succeeds.
 - **Code quality and API refinement.** Loops in src/ now iterate `axes`/`eachindex` instead of
   `1:size`/`1:length` via fatou `index-from-length` checks; 13 findings where the index also
   reaches an array of another shape, or another axis, are suppressed with
