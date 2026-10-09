@@ -2,7 +2,7 @@
 using VortexCollisions
 using Test
 
-include("helpers/functions.jl")
+include("../helpers/functions.jl")
 
 function u_test_sinx4(x, y)
     sin(x)^4

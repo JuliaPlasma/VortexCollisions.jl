@@ -65,6 +65,13 @@ reasoning that makes it worth keeping.
   (test/time_integration.jl). The exported `apply_operator!(::Vector, ::Matrix, ::Vector)` now
   raises `DimensionMismatch` when `op` and `v` have different lengths; previously, a longer `v` was
   silently filled only in part, and a shorter `v` raised `BoundsError`.
+- **The Fokker-Planck kernel test moves to `test/integration/`.** The test convention keeps a test
+  file at the top level of `test/` only where it mirrors `src/<name>.jl`.
+  `test/fokker_planck_operator_kernel.jl` mirrors no source file; it tests
+  `src/fokker_planck_operator.jl` together with `src/grid.jl` and `src/fourier_transform.jl`, and
+  `test/fokker_planck_operator.jl` already mirrors the operator, so it is now
+  `test/integration/fokker_planck_operator_kernel.jl`. Only its include path of
+  `helpers/functions.jl` and its path in `runtests.jl` change.
 
 ### Breaking Changes
 
