@@ -87,6 +87,8 @@ reasoning that makes it worth keeping.
   and `docs/src/index.md` name the new path.
 - **A `[compat]` section, where there was none.** `julia`, whose floor the first entry under
   Changed above sets to 1.12 and which the CI matrix resolves its lower entry from, plus bounds
-  for the four non-stdlib dependencies: `AbstractFFTs = "1"`, `FFTW = "1"`, `HDF5 = "0.17"`,
+  for the four non-stdlib dependencies: `AbstractFFTs = "1"`, `FFTW = "1.3.1"`, `HDF5 = "0.17"`,
   `ProgressMeter = "1"`, matching what the manifest resolves today. An unbounded dependency is free
-  to break the package on its next breaking release.
+  to break the package on its next breaking release. `FFTW` settles at 1.3.1 rather than `"1"`:
+  `AbstractFFTs = "1"` and FFTW 1.0.0 to 1.3.0 require `AbstractFFTs` 0.5, so the two lower bounds
+  cannot hold at once, and the `Downgrade` job named FFTW as unreachable at its old value.
