@@ -55,6 +55,10 @@ reasoning that makes it worth keeping.
 
 ### Changed
 
+- **Julia 1.12 is the floor** (`[compat] julia = "1.12"`, from 1.10). A breaking change under
+  this package's pre-1.0 convention: a caller on Julia 1.10 or 1.11 can no longer install this
+  version. The repository records no reason for the new floor, and no code or test workaround
+  existed for the old one, so nothing in the package's code changes.
 - **Coverage and cache in CI.** CI uploads coverage from the `Julia 1 - ubuntu-latest` job instead
   of `Julia min`, and a test job saves the Julia cache only when it succeeds.
 - **Code quality and API refinement.** Loops in src/ now iterate `axes`/`eachindex` instead of
@@ -81,8 +85,8 @@ reasoning that makes it worth keeping.
   clone and an `]add` of the old URL both keep working — but they resolve through a redirect
   rather than to the real location, so pinned URLs are worth updating. `README.md`, `docs/make.jl`
   and `docs/src/index.md` name the new path.
-- **A `[compat]` section, where there was none.** `julia = "1.10"` — the LTS and the floor across
-  the tree, and the field the CI matrix resolves its lower entry from — plus bounds for the four
-  non-stdlib dependencies: `AbstractFFTs = "1"`, `FFTW = "1"`, `HDF5 = "0.17"`,
+- **A `[compat]` section, where there was none.** `julia`, whose floor the first entry under
+  Changed above sets to 1.12 and which the CI matrix resolves its lower entry from, plus bounds
+  for the four non-stdlib dependencies: `AbstractFFTs = "1"`, `FFTW = "1"`, `HDF5 = "0.17"`,
   `ProgressMeter = "1"`, matching what the manifest resolves today. An unbounded dependency is free
   to break the package on its next breaking release.
