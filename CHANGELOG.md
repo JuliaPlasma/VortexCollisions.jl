@@ -76,6 +76,12 @@ reasoning that makes it worth keeping.
   `test/fokker_planck_operator.jl` already mirrors the operator, so it is now
   `test/integration/fokker_planck_operator_kernel.jl`. Only its include path of
   `helpers/functions.jl` and its path in `runtests.jl` change.
+- **Aqua's floor in `test/Project.toml` is 0.8.14** (from `"0.8"`). The `Downgrade` job resolves
+  `Project.toml` and `test/Project.toml` together at their lower bounds on Julia 1.12 and runs the
+  tests there. Aqua 0.8.0 to 0.8.13 read `Core.TypeName.mt`, which Julia 1.12 no longer has, so
+  the piracy check throws a `FieldError`; 0.8.14 is the first release that reads
+  `Core.methodtable` instead. No other floor changes: the merged resolve reaches every lower bound
+  of both files.
 
 ### Breaking Changes
 
