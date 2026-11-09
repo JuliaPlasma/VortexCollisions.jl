@@ -98,3 +98,11 @@ reasoning that makes it worth keeping.
   to break the package on its next breaking release. `FFTW` settles at 1.3.1 rather than `"1"`:
   `AbstractFFTs = "1"` and FFTW 1.0.0 to 1.3.0 require `AbstractFFTs` 0.5, so the two lower bounds
   cannot hold at once, and the `Downgrade` job named FFTW as unreachable at its old value.
+- **`FourierTransform` and `FokkerPlanckOperator` each gain a last type parameter.** The field
+  `forw_plan` of `FourierTransform` was typed `FFTW.rFFTWPlan{RT, -1, false, 2}`, which leaves the
+  last parameter of `rFFTWPlan` open, so the field type was abstract. It is now the parameter
+  `PT <: FFTW.rFFTWPlan{RT, -1, false, 2}`, and the field `ft` of `FokkerPlanckOperator` is the
+  parameter `FT <: FourierTransform{ℳ, 𝒩, RT, CT}`. Code that calls `FourierTransform(grid)` and
+  `FokkerPlanckOperator(grid, ft)` and dispatches on the leading parameters does not change. Code
+  that calls a constructor with all type parameters spelled out, such as
+  `FokkerPlanckOperator{M, N, ℳ, 𝒩, RT, CT, HT, MT, WT}(…)`, must add the new last parameter.
