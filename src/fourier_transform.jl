@@ -2,14 +2,15 @@
 using AbstractFFTs
 using FFTW
 
-struct FourierTransform{ℳ, 𝒩, RT <: Number, CT <: Number}
+struct FourierTransform{
+    ℳ, 𝒩, RT <: Number, CT <: Number, PT <: FFTW.rFFTWPlan{RT, -1, false, 2}}
     ℳcut::Int
     𝒩cut::Int
     m::Vector{RT}
     n::Vector{RT}
     χ::Matrix{RT}
     μ::Matrix{CT}
-    forw_plan::FFTW.rFFTWPlan{RT, -1, false, 2}
+    forw_plan::PT
     back_plan::AbstractFFTs.ScaledPlan{
         CT, FFTW.rFFTWPlan{CT, 1, false, 2, Tuple{Int, Int}}, RT}
 end
@@ -33,7 +34,8 @@ function FourierTransform(grid::Grid2d{M, N, RT}; ℳcut::Int = 0, 𝒩cut::Int 
     # println(size(forw_plan), eltype(forw_plan), typeof(forw_plan))
     # println(size(back_plan), eltype(back_plan), typeof(back_plan))
 
-    FourierTransform{ℳ, 𝒩, RT, CT}(ℳcut, 𝒩cut, m, n, χ, μ, forw_plan, back_plan)
+    FourierTransform{ℳ, 𝒩, RT, CT, typeof(forw_plan)}(
+        ℳcut, 𝒩cut, m, n, χ, μ, forw_plan, back_plan)
 end
 
 function Base.show(io::IO, ft::FourierTransform{ℳ, 𝒩, RT, CT}) where {ℳ, 𝒩, RT, CT}

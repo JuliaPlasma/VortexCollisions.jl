@@ -1,8 +1,9 @@
 
-struct FokkerPlanckOperator{M, N, ℳ, 𝒩, RT, CT, HT, MT, WT} <:
+struct FokkerPlanckOperator{
+    M, N, ℳ, 𝒩, RT, CT, HT, MT, WT, FT <: FourierTransform{ℳ, 𝒩, RT, CT}} <:
        CollisionOperator{M, N, ℳ, 𝒩, RT, CT}
     grid::Grid2d{M, N, RT}
-    ft::FourierTransform{ℳ, 𝒩, RT, CT}
+    ft::FT
     D::Vector{Matrix{CT}}
     Δ⁻¹::Matrix{CT}
 
@@ -22,9 +23,9 @@ struct FokkerPlanckOperator{M, N, ℳ, 𝒩, RT, CT, HT, MT, WT} <:
     𝔽::Vector{SharedArray{RT, 2}}
     𝔻::Matrix{SharedArray{RT, 2}}
 
-    function FokkerPlanckOperator{M, N, ℳ, 𝒩, RT, CT, HT, MT, WT}(
-            grid::Grid2d{M, N, RT}, ft::FourierTransform{ℳ, 𝒩, RT, CT},
-            hfunc::HT, mfunc::MT, wfunc::WT) where {M, N, ℳ, 𝒩, RT, CT, HT, MT, WT}
+    function FokkerPlanckOperator{M, N, ℳ, 𝒩, RT, CT, HT, MT, WT, FT}(
+            grid::Grid2d{M, N, RT}, ft::FT,
+            hfunc::HT, mfunc::MT, wfunc::WT) where {M, N, ℳ, 𝒩, RT, CT, HT, MT, WT, FT}
         D = get_gradient(ft)
         Δ⁻¹ = get_inverse_laplacian(ft, sign = -1)
 
@@ -48,7 +49,7 @@ function FokkerPlanckOperator(grid::Grid2d{M, N, RT}, ft::FourierTransform{ℳ, 
         hfunc = hfunc_fokker_planck!, mfunc = mfunc_fokker_planck!,
         wfunc = wfunc_fokker_planck!) where {M, N, ℳ, 𝒩, RT, CT}
     op = FokkerPlanckOperator{
-        M, N, ℳ, 𝒩, RT, CT, typeof(hfunc), typeof(mfunc), typeof(wfunc)}(
+        M, N, ℳ, 𝒩, RT, CT, typeof(hfunc), typeof(mfunc), typeof(wfunc), typeof(ft)}(
         grid, ft, hfunc, mfunc, wfunc)
     nworkers() > 1 ? initialize_workers(op, ft.ℳcut, ft.𝒩cut) : nothing
     return op
